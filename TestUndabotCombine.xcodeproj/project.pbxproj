@@ -11,7 +11,6 @@
 		7D669C5B29AB9CB00073C9B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D669C5A29AB9CB00073C9B0 /* AppDelegate.swift */; };
 		7D669C5D29AB9CB00073C9B0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D669C5C29AB9CB00073C9B0 /* SceneDelegate.swift */; };
 		7D669C5F29AB9CB00073C9B0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D669C5E29AB9CB00073C9B0 /* ViewController.swift */; };
-		7D669C6229AB9CB10073C9B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D669C6029AB9CB10073C9B0 /* Main.storyboard */; };
 		7D669C6429AB9CB70073C9B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D669C6329AB9CB70073C9B0 /* Assets.xcassets */; };
 		7D669C6729AB9CB70073C9B0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D669C6529AB9CB70073C9B0 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -23,7 +22,6 @@
 		7D669C5A29AB9CB00073C9B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D669C5C29AB9CB00073C9B0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		7D669C5E29AB9CB00073C9B0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		7D669C6129AB9CB10073C9B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7D669C6329AB9CB70073C9B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D669C6629AB9CB70073C9B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7D669C6829AB9CB70073C9B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -63,15 +61,62 @@
 		7D669C5929AB9CB00073C9B0 /* TestUndabotCombine */ = {
 			isa = PBXGroup;
 			children = (
-				7D669C5A29AB9CB00073C9B0 /* AppDelegate.swift */,
-				7D669C5C29AB9CB00073C9B0 /* SceneDelegate.swift */,
-				7D669C5E29AB9CB00073C9B0 /* ViewController.swift */,
-				7D669C6029AB9CB10073C9B0 /* Main.storyboard */,
-				7D669C6329AB9CB70073C9B0 /* Assets.xcassets */,
-				7D669C6529AB9CB70073C9B0 /* LaunchScreen.storyboard */,
+				7DBDF58329AB9DE500F5B9C4 /* Resources */,
+				7DBDF58429AB9DED00F5B9C4 /* Extensions */,
+				7DBDF58229AB9DD700F5B9C4 /* Views */,
+				7DBDF58129AB9DD200F5B9C4 /* Models */,
+				7DBDF58029AB9DC900F5B9C4 /* ViewModels */,
+				7DBDF58529AB9E0F00F5B9C4 /* Controllers */,
 				7D669C6829AB9CB70073C9B0 /* Info.plist */,
 			);
 			path = TestUndabotCombine;
+			sourceTree = "<group>";
+		};
+		7DBDF58029AB9DC900F5B9C4 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		7DBDF58129AB9DD200F5B9C4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7DBDF58229AB9DD700F5B9C4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7DBDF58329AB9DE500F5B9C4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7D669C5A29AB9CB00073C9B0 /* AppDelegate.swift */,
+				7D669C5C29AB9CB00073C9B0 /* SceneDelegate.swift */,
+				7D669C6329AB9CB70073C9B0 /* Assets.xcassets */,
+				7D669C6529AB9CB70073C9B0 /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		7DBDF58429AB9DED00F5B9C4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		7DBDF58529AB9E0F00F5B9C4 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7D669C5E29AB9CB00073C9B0 /* ViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		AD177BCCDE6D10B7D9278AA8 /* Frameworks */ = {
@@ -88,7 +133,6 @@
 				8BE0A94B3528E80924EE04D6 /* Pods-TestUndabotCombine.debug.xcconfig */,
 				7A6341AD8461F2AE48EE54D4 /* Pods-TestUndabotCombine.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -104,6 +148,7 @@
 				7D669C5429AB9CB00073C9B0 /* Frameworks */,
 				7D669C5529AB9CB00073C9B0 /* Resources */,
 				27E82C417CFD0BBCD4B5DFFB /* [CP] Embed Pods Frameworks */,
+				7D84083929AB9FCB001C1349 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -154,7 +199,6 @@
 			files = (
 				7D669C6729AB9CB70073C9B0 /* LaunchScreen.storyboard in Resources */,
 				7D669C6429AB9CB70073C9B0 /* Assets.xcassets in Resources */,
-				7D669C6229AB9CB10073C9B0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,6 +244,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		7D84083929AB9FCB001C1349 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -216,14 +278,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		7D669C6029AB9CB10073C9B0 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7D669C6129AB9CB10073C9B0 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		7D669C6529AB9CB70073C9B0 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -362,7 +416,6 @@
 				INFOPLIST_FILE = TestUndabotCombine/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -391,7 +444,6 @@
 				INFOPLIST_FILE = TestUndabotCombine/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
