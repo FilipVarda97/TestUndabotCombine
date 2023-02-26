@@ -10,9 +10,43 @@
 		4E20332D94D28EC765C0B104 /* Pods_TestUndabotCombine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6830CD63D5A0A5CAA7CEBDE3 /* Pods_TestUndabotCombine.framework */; };
 		7D669C5B29AB9CB00073C9B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D669C5A29AB9CB00073C9B0 /* AppDelegate.swift */; };
 		7D669C5D29AB9CB00073C9B0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D669C5C29AB9CB00073C9B0 /* SceneDelegate.swift */; };
-		7D669C5F29AB9CB00073C9B0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D669C5E29AB9CB00073C9B0 /* ViewController.swift */; };
+		7D669C5F29AB9CB00073C9B0 /* TUCUserDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D669C5E29AB9CB00073C9B0 /* TUCUserDetailsViewController.swift */; };
 		7D669C6429AB9CB70073C9B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D669C6329AB9CB70073C9B0 /* Assets.xcassets */; };
 		7D669C6729AB9CB70073C9B0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D669C6529AB9CB70073C9B0 /* LaunchScreen.storyboard */; };
+		7D84084329ABA0C9001C1349 /* TUCSearchRepoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84084229ABA0C9001C1349 /* TUCSearchRepoListViewController.swift */; };
+		7D84084529ABA13B001C1349 /* TUCRepositoryDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84084429ABA13B001C1349 /* TUCRepositoryDetailsViewController.swift */; };
+		7D84084B29ABA257001C1349 /* TUCRepositoriesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84084A29ABA257001C1349 /* TUCRepositoriesResponse.swift */; };
+		7D84084D29ABA272001C1349 /* TUCRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84084C29ABA272001C1349 /* TUCRepository.swift */; };
+		7D84084F29ABA29A001C1349 /* TUCOwnerUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84084E29ABA29A001C1349 /* TUCOwnerUser.swift */; };
+		7D84085129ABA2B3001C1349 /* TUCUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84085029ABA2B3001C1349 /* TUCUser.swift */; };
+		7D84085629ABA36B001C1349 /* TUCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84085529ABA36B001C1349 /* TUCService.swift */; };
+		7D84085829ABA38F001C1349 /* TUCRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84085729ABA38F001C1349 /* TUCRequest.swift */; };
+		7D84085A29ABA3C4001C1349 /* TUCEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84085929ABA3C4001C1349 /* TUCEndpoint.swift */; };
+		7D84085C29ABA420001C1349 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84085B29ABA420001C1349 /* UIView.swift */; };
+		7D84085F29ABA478001C1349 /* TUCRepositoryDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84085E29ABA478001C1349 /* TUCRepositoryDetailsViewModel.swift */; };
+		7D84086129ABA4A5001C1349 /* TUCRepositoryDetailInfoCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84086029ABA4A5001C1349 /* TUCRepositoryDetailInfoCollectionViewCellViewModel.swift */; };
+		7D84086329ABA4C3001C1349 /* TUCRepositoryDetailDatesCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84086229ABA4C3001C1349 /* TUCRepositoryDetailDatesCollectionViewCellViewModel.swift */; };
+		7D84086529ABA4DC001C1349 /* TUCRepositoryDetailUrlsCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84086429ABA4DB001C1349 /* TUCRepositoryDetailUrlsCollectionViewCellViewModel.swift */; };
+		7D84086729ABA4EF001C1349 /* TUCRepositoryDetailUserCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84086629ABA4EF001C1349 /* TUCRepositoryDetailUserCollectionViewCellViewModel.swift */; };
+		7D84086929ABA5DF001C1349 /* TUCUserDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84086829ABA5DF001C1349 /* TUCUserDetailsViewModel.swift */; };
+		7D84086C29ABA5F9001C1349 /* TUCUserDetailPhotoCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84086B29ABA5F9001C1349 /* TUCUserDetailPhotoCollectionViewCellViewModel.swift */; };
+		7D84086E29ABA607001C1349 /* TUCUserDetailsInfoCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84086D29ABA607001C1349 /* TUCUserDetailsInfoCollectionViewCellViewModel.swift */; };
+		7D84087129ABA624001C1349 /* TUCUserDetailsGitCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84087029ABA624001C1349 /* TUCUserDetailsGitCollectionViewCellViewModel.swift */; };
+		7D84087429ABA71F001C1349 /* TUCRepositoryListTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84087329ABA71F001C1349 /* TUCRepositoryListTableViewCellViewModel.swift */; };
+		7D84087729ABA737001C1349 /* TUCRepositroyListViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84087629ABA737001C1349 /* TUCRepositroyListViewViewModel.swift */; };
+		7D84088029ABA849001C1349 /* TUCEmptyTableViewBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84087F29ABA849001C1349 /* TUCEmptyTableViewBackground.swift */; };
+		7D84088229ABA86B001C1349 /* TUCRepositoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84088129ABA86B001C1349 /* TUCRepositoryListView.swift */; };
+		7D84088429ABA8D1001C1349 /* TUCRepositoryListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84088329ABA8D1001C1349 /* TUCRepositoryListTableViewCell.swift */; };
+		7D84088629ABA915001C1349 /* TUCUserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84088529ABA915001C1349 /* TUCUserDetailView.swift */; };
+		7D84088829ABA929001C1349 /* TUCUserDetailPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84088729ABA929001C1349 /* TUCUserDetailPhotoCollectionViewCell.swift */; };
+		7D84088A29ABA939001C1349 /* TUCUserDetailsInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84088929ABA939001C1349 /* TUCUserDetailsInfoCollectionViewCell.swift */; };
+		7D84088C29ABA948001C1349 /* TUCUserDetailsGitCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84088B29ABA948001C1349 /* TUCUserDetailsGitCollectionViewCell.swift */; };
+		7D84088E29ABA969001C1349 /* TUCRepositoryDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84088D29ABA969001C1349 /* TUCRepositoryDetailsView.swift */; };
+		7D84089029ABA97A001C1349 /* TUCRepositoryDetailInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84088F29ABA97A001C1349 /* TUCRepositoryDetailInfoCollectionViewCell.swift */; };
+		7D84089229ABA983001C1349 /* TUCRepositoryDetailDatesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84089129ABA983001C1349 /* TUCRepositoryDetailDatesCollectionViewCell.swift */; };
+		7D84089429ABA992001C1349 /* TUCRepositoryDetailUrlsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84089329ABA992001C1349 /* TUCRepositoryDetailUrlsCollectionViewCell.swift */; };
+		7D84089629ABA99E001C1349 /* TUCRepositoryDetailUserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84089529ABA99E001C1349 /* TUCRepositoryDetailUserCollectionViewCell.swift */; };
+		7D84089929ABAAC3001C1349 /* TUCImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84089829ABAAC3001C1349 /* TUCImageLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,10 +55,44 @@
 		7D669C5729AB9CB00073C9B0 /* TestUndabotCombine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestUndabotCombine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D669C5A29AB9CB00073C9B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D669C5C29AB9CB00073C9B0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		7D669C5E29AB9CB00073C9B0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7D669C5E29AB9CB00073C9B0 /* TUCUserDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCUserDetailsViewController.swift; sourceTree = "<group>"; };
 		7D669C6329AB9CB70073C9B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D669C6629AB9CB70073C9B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7D669C6829AB9CB70073C9B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7D84084229ABA0C9001C1349 /* TUCSearchRepoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCSearchRepoListViewController.swift; sourceTree = "<group>"; };
+		7D84084429ABA13B001C1349 /* TUCRepositoryDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCRepositoryDetailsViewController.swift; sourceTree = "<group>"; };
+		7D84084A29ABA257001C1349 /* TUCRepositoriesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCRepositoriesResponse.swift; sourceTree = "<group>"; };
+		7D84084C29ABA272001C1349 /* TUCRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCRepository.swift; sourceTree = "<group>"; };
+		7D84084E29ABA29A001C1349 /* TUCOwnerUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCOwnerUser.swift; sourceTree = "<group>"; };
+		7D84085029ABA2B3001C1349 /* TUCUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCUser.swift; sourceTree = "<group>"; };
+		7D84085529ABA36B001C1349 /* TUCService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCService.swift; sourceTree = "<group>"; };
+		7D84085729ABA38F001C1349 /* TUCRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCRequest.swift; sourceTree = "<group>"; };
+		7D84085929ABA3C4001C1349 /* TUCEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCEndpoint.swift; sourceTree = "<group>"; };
+		7D84085B29ABA420001C1349 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		7D84085E29ABA478001C1349 /* TUCRepositoryDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCRepositoryDetailsViewModel.swift; sourceTree = "<group>"; };
+		7D84086029ABA4A5001C1349 /* TUCRepositoryDetailInfoCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCRepositoryDetailInfoCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
+		7D84086229ABA4C3001C1349 /* TUCRepositoryDetailDatesCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCRepositoryDetailDatesCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
+		7D84086429ABA4DB001C1349 /* TUCRepositoryDetailUrlsCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCRepositoryDetailUrlsCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
+		7D84086629ABA4EF001C1349 /* TUCRepositoryDetailUserCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCRepositoryDetailUserCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
+		7D84086829ABA5DF001C1349 /* TUCUserDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCUserDetailsViewModel.swift; sourceTree = "<group>"; };
+		7D84086B29ABA5F9001C1349 /* TUCUserDetailPhotoCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCUserDetailPhotoCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
+		7D84086D29ABA607001C1349 /* TUCUserDetailsInfoCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCUserDetailsInfoCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
+		7D84087029ABA624001C1349 /* TUCUserDetailsGitCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCUserDetailsGitCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
+		7D84087329ABA71F001C1349 /* TUCRepositoryListTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCRepositoryListTableViewCellViewModel.swift; sourceTree = "<group>"; };
+		7D84087629ABA737001C1349 /* TUCRepositroyListViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCRepositroyListViewViewModel.swift; sourceTree = "<group>"; };
+		7D84087F29ABA849001C1349 /* TUCEmptyTableViewBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCEmptyTableViewBackground.swift; sourceTree = "<group>"; };
+		7D84088129ABA86B001C1349 /* TUCRepositoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCRepositoryListView.swift; sourceTree = "<group>"; };
+		7D84088329ABA8D1001C1349 /* TUCRepositoryListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCRepositoryListTableViewCell.swift; sourceTree = "<group>"; };
+		7D84088529ABA915001C1349 /* TUCUserDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCUserDetailView.swift; sourceTree = "<group>"; };
+		7D84088729ABA929001C1349 /* TUCUserDetailPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCUserDetailPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		7D84088929ABA939001C1349 /* TUCUserDetailsInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCUserDetailsInfoCollectionViewCell.swift; sourceTree = "<group>"; };
+		7D84088B29ABA948001C1349 /* TUCUserDetailsGitCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCUserDetailsGitCollectionViewCell.swift; sourceTree = "<group>"; };
+		7D84088D29ABA969001C1349 /* TUCRepositoryDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCRepositoryDetailsView.swift; sourceTree = "<group>"; };
+		7D84088F29ABA97A001C1349 /* TUCRepositoryDetailInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCRepositoryDetailInfoCollectionViewCell.swift; sourceTree = "<group>"; };
+		7D84089129ABA983001C1349 /* TUCRepositoryDetailDatesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCRepositoryDetailDatesCollectionViewCell.swift; sourceTree = "<group>"; };
+		7D84089329ABA992001C1349 /* TUCRepositoryDetailUrlsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCRepositoryDetailUrlsCollectionViewCell.swift; sourceTree = "<group>"; };
+		7D84089529ABA99E001C1349 /* TUCRepositoryDetailUserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCRepositoryDetailUserCollectionViewCell.swift; sourceTree = "<group>"; };
+		7D84089829ABAAC3001C1349 /* TUCImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCImageLoader.swift; sourceTree = "<group>"; };
 		8BE0A94B3528E80924EE04D6 /* Pods-TestUndabotCombine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestUndabotCombine.debug.xcconfig"; path = "Target Support Files/Pods-TestUndabotCombine/Pods-TestUndabotCombine.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -61,6 +129,8 @@
 		7D669C5929AB9CB00073C9B0 /* TestUndabotCombine */ = {
 			isa = PBXGroup;
 			children = (
+				7D84089729ABAAAF001C1349 /* Managers */,
+				7D84085429ABA2D4001C1349 /* APIClient */,
 				7DBDF58329AB9DE500F5B9C4 /* Resources */,
 				7DBDF58429AB9DED00F5B9C4 /* Extensions */,
 				7DBDF58229AB9DD700F5B9C4 /* Views */,
@@ -72,9 +142,158 @@
 			path = TestUndabotCombine;
 			sourceTree = "<group>";
 		};
+		7D84084629ABA1EE001C1349 /* RepositoryDetails */ = {
+			isa = PBXGroup;
+			children = (
+				7D84087229ABA700001C1349 /* CellViewModels */,
+				7D84087629ABA737001C1349 /* TUCRepositroyListViewViewModel.swift */,
+			);
+			path = RepositoryDetails;
+			sourceTree = "<group>";
+		};
+		7D84084729ABA200001C1349 /* UserDetails */ = {
+			isa = PBXGroup;
+			children = (
+				7D84086A29ABA5E6001C1349 /* CellViewModels */,
+				7D84086829ABA5DF001C1349 /* TUCUserDetailsViewModel.swift */,
+			);
+			path = UserDetails;
+			sourceTree = "<group>";
+		};
+		7D84084829ABA210001C1349 /* RepositoryList */ = {
+			isa = PBXGroup;
+			children = (
+				7D84085D29ABA43F001C1349 /* CellViewModels */,
+				7D84085E29ABA478001C1349 /* TUCRepositoryDetailsViewModel.swift */,
+			);
+			path = RepositoryList;
+			sourceTree = "<group>";
+		};
+		7D84084929ABA236001C1349 /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				7D84084A29ABA257001C1349 /* TUCRepositoriesResponse.swift */,
+			);
+			path = Responses;
+			sourceTree = "<group>";
+		};
+		7D84085429ABA2D4001C1349 /* APIClient */ = {
+			isa = PBXGroup;
+			children = (
+				7D84085529ABA36B001C1349 /* TUCService.swift */,
+				7D84085729ABA38F001C1349 /* TUCRequest.swift */,
+				7D84085929ABA3C4001C1349 /* TUCEndpoint.swift */,
+			);
+			path = APIClient;
+			sourceTree = "<group>";
+		};
+		7D84085D29ABA43F001C1349 /* CellViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				7D84086029ABA4A5001C1349 /* TUCRepositoryDetailInfoCollectionViewCellViewModel.swift */,
+				7D84086229ABA4C3001C1349 /* TUCRepositoryDetailDatesCollectionViewCellViewModel.swift */,
+				7D84086429ABA4DB001C1349 /* TUCRepositoryDetailUrlsCollectionViewCellViewModel.swift */,
+				7D84086629ABA4EF001C1349 /* TUCRepositoryDetailUserCollectionViewCellViewModel.swift */,
+			);
+			path = CellViewModels;
+			sourceTree = "<group>";
+		};
+		7D84086A29ABA5E6001C1349 /* CellViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				7D84086B29ABA5F9001C1349 /* TUCUserDetailPhotoCollectionViewCellViewModel.swift */,
+				7D84086D29ABA607001C1349 /* TUCUserDetailsInfoCollectionViewCellViewModel.swift */,
+				7D84087029ABA624001C1349 /* TUCUserDetailsGitCollectionViewCellViewModel.swift */,
+			);
+			path = CellViewModels;
+			sourceTree = "<group>";
+		};
+		7D84087229ABA700001C1349 /* CellViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				7D84087329ABA71F001C1349 /* TUCRepositoryListTableViewCellViewModel.swift */,
+			);
+			path = CellViewModels;
+			sourceTree = "<group>";
+		};
+		7D84087829ABA7E4001C1349 /* Reusable */ = {
+			isa = PBXGroup;
+			children = (
+				7D84087F29ABA849001C1349 /* TUCEmptyTableViewBackground.swift */,
+			);
+			path = Reusable;
+			sourceTree = "<group>";
+		};
+		7D84087929ABA7E6001C1349 /* RepositoryListView */ = {
+			isa = PBXGroup;
+			children = (
+				7D84087E29ABA831001C1349 /* Cells */,
+				7D84088129ABA86B001C1349 /* TUCRepositoryListView.swift */,
+			);
+			path = RepositoryListView;
+			sourceTree = "<group>";
+		};
+		7D84087A29ABA7E7001C1349 /* UserDetails */ = {
+			isa = PBXGroup;
+			children = (
+				7D84087D29ABA81B001C1349 /* Cells */,
+				7D84088529ABA915001C1349 /* TUCUserDetailView.swift */,
+			);
+			path = UserDetails;
+			sourceTree = "<group>";
+		};
+		7D84087B29ABA7E9001C1349 /* RepositoryDetails */ = {
+			isa = PBXGroup;
+			children = (
+				7D84087C29ABA810001C1349 /* Cells */,
+				7D84088D29ABA969001C1349 /* TUCRepositoryDetailsView.swift */,
+			);
+			path = RepositoryDetails;
+			sourceTree = "<group>";
+		};
+		7D84087C29ABA810001C1349 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				7D84088F29ABA97A001C1349 /* TUCRepositoryDetailInfoCollectionViewCell.swift */,
+				7D84089129ABA983001C1349 /* TUCRepositoryDetailDatesCollectionViewCell.swift */,
+				7D84089329ABA992001C1349 /* TUCRepositoryDetailUrlsCollectionViewCell.swift */,
+				7D84089529ABA99E001C1349 /* TUCRepositoryDetailUserCollectionViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		7D84087D29ABA81B001C1349 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				7D84088729ABA929001C1349 /* TUCUserDetailPhotoCollectionViewCell.swift */,
+				7D84088929ABA939001C1349 /* TUCUserDetailsInfoCollectionViewCell.swift */,
+				7D84088B29ABA948001C1349 /* TUCUserDetailsGitCollectionViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		7D84087E29ABA831001C1349 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				7D84088329ABA8D1001C1349 /* TUCRepositoryListTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		7D84089729ABAAAF001C1349 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				7D84089829ABAAC3001C1349 /* TUCImageLoader.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		7DBDF58029AB9DC900F5B9C4 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				7D84084829ABA210001C1349 /* RepositoryList */,
+				7D84084729ABA200001C1349 /* UserDetails */,
+				7D84084629ABA1EE001C1349 /* RepositoryDetails */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -82,6 +301,10 @@
 		7DBDF58129AB9DD200F5B9C4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7D84084929ABA236001C1349 /* Responses */,
+				7D84084C29ABA272001C1349 /* TUCRepository.swift */,
+				7D84084E29ABA29A001C1349 /* TUCOwnerUser.swift */,
+				7D84085029ABA2B3001C1349 /* TUCUser.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -89,6 +312,10 @@
 		7DBDF58229AB9DD700F5B9C4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7D84087B29ABA7E9001C1349 /* RepositoryDetails */,
+				7D84087A29ABA7E7001C1349 /* UserDetails */,
+				7D84087929ABA7E6001C1349 /* RepositoryListView */,
+				7D84087829ABA7E4001C1349 /* Reusable */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -107,6 +334,7 @@
 		7DBDF58429AB9DED00F5B9C4 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				7D84085B29ABA420001C1349 /* UIView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -114,7 +342,9 @@
 		7DBDF58529AB9E0F00F5B9C4 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7D669C5E29AB9CB00073C9B0 /* ViewController.swift */,
+				7D669C5E29AB9CB00073C9B0 /* TUCUserDetailsViewController.swift */,
+				7D84084229ABA0C9001C1349 /* TUCSearchRepoListViewController.swift */,
+				7D84084429ABA13B001C1349 /* TUCRepositoryDetailsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -269,9 +499,43 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D669C5F29AB9CB00073C9B0 /* ViewController.swift in Sources */,
+				7D84085C29ABA420001C1349 /* UIView.swift in Sources */,
+				7D84086929ABA5DF001C1349 /* TUCUserDetailsViewModel.swift in Sources */,
+				7D84085629ABA36B001C1349 /* TUCService.swift in Sources */,
+				7D84088629ABA915001C1349 /* TUCUserDetailView.swift in Sources */,
+				7D84087429ABA71F001C1349 /* TUCRepositoryListTableViewCellViewModel.swift in Sources */,
+				7D84086129ABA4A5001C1349 /* TUCRepositoryDetailInfoCollectionViewCellViewModel.swift in Sources */,
+				7D84088E29ABA969001C1349 /* TUCRepositoryDetailsView.swift in Sources */,
+				7D84089029ABA97A001C1349 /* TUCRepositoryDetailInfoCollectionViewCell.swift in Sources */,
+				7D84084329ABA0C9001C1349 /* TUCSearchRepoListViewController.swift in Sources */,
+				7D84088A29ABA939001C1349 /* TUCUserDetailsInfoCollectionViewCell.swift in Sources */,
+				7D84087729ABA737001C1349 /* TUCRepositroyListViewViewModel.swift in Sources */,
+				7D669C5F29AB9CB00073C9B0 /* TUCUserDetailsViewController.swift in Sources */,
+				7D84088829ABA929001C1349 /* TUCUserDetailPhotoCollectionViewCell.swift in Sources */,
+				7D84084529ABA13B001C1349 /* TUCRepositoryDetailsViewController.swift in Sources */,
+				7D84086729ABA4EF001C1349 /* TUCRepositoryDetailUserCollectionViewCellViewModel.swift in Sources */,
+				7D84089629ABA99E001C1349 /* TUCRepositoryDetailUserCollectionViewCell.swift in Sources */,
+				7D84085829ABA38F001C1349 /* TUCRequest.swift in Sources */,
+				7D84086329ABA4C3001C1349 /* TUCRepositoryDetailDatesCollectionViewCellViewModel.swift in Sources */,
+				7D84086E29ABA607001C1349 /* TUCUserDetailsInfoCollectionViewCellViewModel.swift in Sources */,
+				7D84089429ABA992001C1349 /* TUCRepositoryDetailUrlsCollectionViewCell.swift in Sources */,
+				7D84088C29ABA948001C1349 /* TUCUserDetailsGitCollectionViewCell.swift in Sources */,
+				7D84087129ABA624001C1349 /* TUCUserDetailsGitCollectionViewCellViewModel.swift in Sources */,
+				7D84084F29ABA29A001C1349 /* TUCOwnerUser.swift in Sources */,
 				7D669C5B29AB9CB00073C9B0 /* AppDelegate.swift in Sources */,
+				7D84085F29ABA478001C1349 /* TUCRepositoryDetailsViewModel.swift in Sources */,
+				7D84089929ABAAC3001C1349 /* TUCImageLoader.swift in Sources */,
+				7D84088029ABA849001C1349 /* TUCEmptyTableViewBackground.swift in Sources */,
+				7D84086529ABA4DC001C1349 /* TUCRepositoryDetailUrlsCollectionViewCellViewModel.swift in Sources */,
+				7D84084D29ABA272001C1349 /* TUCRepository.swift in Sources */,
+				7D84085129ABA2B3001C1349 /* TUCUser.swift in Sources */,
+				7D84085A29ABA3C4001C1349 /* TUCEndpoint.swift in Sources */,
+				7D84089229ABA983001C1349 /* TUCRepositoryDetailDatesCollectionViewCell.swift in Sources */,
+				7D84086C29ABA5F9001C1349 /* TUCUserDetailPhotoCollectionViewCellViewModel.swift in Sources */,
+				7D84088429ABA8D1001C1349 /* TUCRepositoryListTableViewCell.swift in Sources */,
+				7D84088229ABA86B001C1349 /* TUCRepositoryListView.swift in Sources */,
 				7D669C5D29AB9CB00073C9B0 /* SceneDelegate.swift in Sources */,
+				7D84084B29ABA257001C1349 /* TUCRepositoriesResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
