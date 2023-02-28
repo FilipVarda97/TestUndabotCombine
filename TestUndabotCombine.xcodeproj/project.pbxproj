@@ -142,13 +142,13 @@
 			path = TestUndabotCombine;
 			sourceTree = "<group>";
 		};
-		7D84084629ABA1EE001C1349 /* RepositoryDetails */ = {
+		7D84084629ABA1EE001C1349 /* RepositoryList */ = {
 			isa = PBXGroup;
 			children = (
 				7D84087229ABA700001C1349 /* CellViewModels */,
 				7D84087629ABA737001C1349 /* TUCRepositroyListViewViewModel.swift */,
 			);
-			path = RepositoryDetails;
+			path = RepositoryList;
 			sourceTree = "<group>";
 		};
 		7D84084729ABA200001C1349 /* UserDetails */ = {
@@ -160,13 +160,13 @@
 			path = UserDetails;
 			sourceTree = "<group>";
 		};
-		7D84084829ABA210001C1349 /* RepositoryList */ = {
+		7D84084829ABA210001C1349 /* RepositoryDetails */ = {
 			isa = PBXGroup;
 			children = (
 				7D84085D29ABA43F001C1349 /* CellViewModels */,
 				7D84085E29ABA478001C1349 /* TUCRepositoryDetailsViewModel.swift */,
 			);
-			path = RepositoryList;
+			path = RepositoryDetails;
 			sourceTree = "<group>";
 		};
 		7D84084929ABA236001C1349 /* Responses */ = {
@@ -291,9 +291,9 @@
 		7DBDF58029AB9DC900F5B9C4 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				7D84084829ABA210001C1349 /* RepositoryList */,
+				7D84084829ABA210001C1349 /* RepositoryDetails */,
 				7D84084729ABA200001C1349 /* UserDetails */,
-				7D84084629ABA1EE001C1349 /* RepositoryDetails */,
+				7D84084629ABA1EE001C1349 /* RepositoryList */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";

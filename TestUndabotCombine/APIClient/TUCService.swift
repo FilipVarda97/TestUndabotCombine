@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 /// Service that can make a API call if provided with TURequest object
 final class TUCService {
@@ -32,25 +33,27 @@ final class TUCService {
 
     /// Executing the request.
     /// Parameter T is generic type that has to comfort to Codable protocol.
-    public func execute<T: Codable>(_ request: TUCRequest,
-                                    expected type: T.Type,
-                                    completion: @escaping (Result<T, Error>) -> Void) {
+    public func execute<T: Codable>(_ request: TUCRequest, expected type: T.Type) -> Future<T, Error> {
         guard let urlRequest = requestFrom(request) else {
-            completion(.failure(TUCServiceError.failedToCreateRequest))
-            return
-        }
-        let task =  URLSession.shared.dataTask(with: urlRequest) { data, _, error in
-            guard error == nil, let data = data else {
-                completion(.failure(error ?? TUCServiceError.failedToFetchData))
-                return
-            }
-            do {
-                let result = try JSONDecoder().decode(type.self, from: data)
-                completion(.success(result))
-            } catch {
-                completion(.failure(error))
+            return Future { promise in
+                promise(.failure(TUCServiceError.failedToCreateRequest))
             }
         }
-        task.resume()
+
+        return Future { promise in
+            let task = URLSession.shared.dataTask(with: urlRequest) { data, _, error in
+                guard error == nil, let data = data else {
+                    promise(.failure(error ?? TUCServiceError.failedToFetchData))
+                    return
+                }
+                do {
+                    let result = try JSONDecoder().decode(type.self, from: data)
+                    promise(.success(result))
+                } catch {
+                    promise(.failure(error))
+                }
+            }
+            task.resume()
+        }
     }
 }

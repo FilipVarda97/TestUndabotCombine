@@ -8,18 +8,16 @@
 import UIKit
 import Kingfisher
 import SnapKit
-
-protocol TUCRepositoryListTableViewCellDelegate: AnyObject {
-    func openUserDetailsWith(url: URL)
-    func openRepositoryDetails(repository: TUCRepository)
-}
+import Combine
 
 /// A table view cell that represents a repository item in a TURepositoryListView.
 /// Press on image opens user details, press on text open repo details.
 class TUCRepositoryListTableViewCell: UITableViewCell {
     static let identifier = "TURepositoryListTableViewCell"
-    weak var delegate: TUCRepositoryListTableViewCellDelegate?
     private var viewModel: TUCRepositoryListTableViewCellViewModel?
+
+    public let userTapAction = PassthroughSubject<URL, Never>()
+    public let repositoryTapAction = PassthroughSubject<TUCRepository, Never>()
 
     private let containerView: UIView = {
         let view = UIView()
@@ -168,11 +166,11 @@ class TUCRepositoryListTableViewCell: UITableViewCell {
     // MARK: - Actions
     @objc private func openUserDetails() {
         guard let url = viewModel?.userUrl else { return }
-        delegate?.openUserDetailsWith(url: url)
+        userTapAction.send(url)
     }
 
     @objc private func openRepositoryDetails() {
         guard let repository = viewModel?.detailedRepository else { return }
-        delegate?.openRepositoryDetails(repository: repository)
+        repositoryTapAction.send(repository)
     }
 }

@@ -6,10 +6,12 @@
 //
 
 import SnapKit
+import Combine
 
 /// Initial controller for the app. This controller presents TURepositoryListView which supports searching for repos and sorting them.
 final class TUCSearchRepoListViewController: UIViewController {
     private let repoListView = TUCRepositoryListView(frame: .zero)
+    private var cancellables = Set<AnyCancellable>()
 
     // MARK: - Implementation
     override func viewDidLoad() {
@@ -19,7 +21,6 @@ final class TUCSearchRepoListViewController: UIViewController {
     }
 
     private func setUpViews() {
-        repoListView.delegate = self
         navigationItem.searchController = repoListView.searchController
         view.backgroundColor = .systemBackground
         view.addSubview(repoListView)
@@ -27,19 +28,21 @@ final class TUCSearchRepoListViewController: UIViewController {
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
-}
 
-// MARK: - TURepositoryListViewDelegate
-extension TUCSearchRepoListViewController: TUCRepositoryListViewDelegate {
-    func repositoryListView(_ listView: TUCRepositoryListView, didSelectUserWith url: URL) {
-        let viewModel = TUCUserDetailsViewModel(userUrl: url)
-        let vc = TUCUserDetailsViewController(viewModel: viewModel)
-        navigationController?.pushViewController(vc, animated: true)
-    }
-
-    func repositoryListView(_ listView: TUCRepositoryListView, didSelectRepository repository: TUCRepository) {
-        let viewModel = TUCRepositoryDetailsViewModel(repository: repository)
-        let vc = TUCRepositoryDetailsViewController(viewModel: viewModel)
-        navigationController?.pushViewController(vc, animated: true)
+    private func bind() {
+        repoListView.openRepositoryDetails
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] repository in
+                let viewModel = TUCRepositoryDetailsViewModel(repository: repository)
+                let vc = TUCRepositoryDetailsViewController(viewModel: viewModel)
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }.store(in: &cancellables)
+        repoListView.openUserDetails
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] url in
+                let viewModel = TUCUserDetailsViewModel(userUrl: url)
+                let vc = TUCUserDetailsViewController(viewModel: viewModel)
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }.store(in: &cancellables)
     }
 }

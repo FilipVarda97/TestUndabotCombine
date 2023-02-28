@@ -51,22 +51,22 @@ final class TUCUserDetailsViewModel: NSObject {
 
     // MARK: - Implementation
     private func fetchUser() {
-        guard let url = userUrl,
-              let tuRequest = TUCRequest(url: url) else { return }
-        delegate?.startLoading()
-        TUCService.shared.execute(tuRequest, expected: TUCUser.self) { [weak self] result  in
-            switch result {
-            case .success(let user):
-                DispatchQueue.main.async {
-                    self?.user = user
-                    self?.delegate?.didLoadUser()
-                }
-            case .failure:
-                DispatchQueue.main.async {
-                    self?.delegate?.failedToLoadUser()
-                }
-            }
-        }
+//        guard let url = userUrl,
+//              let tuRequest = TUCRequest(url: url) else { return }
+//        delegate?.startLoading()
+//        TUCService.shared.execute(tuRequest, expected: TUCUser.self) { [weak self] result  in
+//            switch result {
+//            case .success(let user):
+//                DispatchQueue.main.async {
+//                    self?.user = user
+//                    self?.delegate?.didLoadUser()
+//                }
+//            case .failure:
+//                DispatchQueue.main.async {
+//                    self?.delegate?.failedToLoadUser()
+//                }
+//            }
+//        }
     }
 
     private func setUpSections() {
