@@ -18,6 +18,7 @@ final class TUCSearchRepoListViewController: UIViewController {
         super.viewDidLoad()
         title = "Repositories"
         setUpViews()
+        bind()
     }
 
     private func setUpViews() {

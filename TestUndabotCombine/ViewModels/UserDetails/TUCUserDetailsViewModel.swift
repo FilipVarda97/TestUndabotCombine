@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 protocol TUCUserDetailsViewModelDelegate: AnyObject {
     func startLoading()
@@ -25,6 +26,7 @@ final class TUCUserDetailsViewModel: NSObject {
 
     public var sections: [SectionType] = []
     private var userUrl: URL?
+    private var cancelables = Set<AnyCancellable>()
 
     private var user: TUCUser? {
         didSet {
@@ -51,22 +53,20 @@ final class TUCUserDetailsViewModel: NSObject {
 
     // MARK: - Implementation
     private func fetchUser() {
-//        guard let url = userUrl,
-//              let tuRequest = TUCRequest(url: url) else { return }
-//        delegate?.startLoading()
-//        TUCService.shared.execute(tuRequest, expected: TUCUser.self) { [weak self] result  in
-//            switch result {
-//            case .success(let user):
-//                DispatchQueue.main.async {
-//                    self?.user = user
-//                    self?.delegate?.didLoadUser()
-//                }
-//            case .failure:
-//                DispatchQueue.main.async {
-//                    self?.delegate?.failedToLoadUser()
-//                }
-//            }
-//        }
+        guard let url = userUrl,
+              let tucRequest = TUCRequest(url: url) else { return }
+        delegate?.startLoading()
+        TUCService.shared.execute(tucRequest, expected: TUCUser.self)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                if case .failure(let error) = completion {
+                    self?.delegate?.failedToLoadUser()
+                    print(error.localizedDescription)
+                }
+            } receiveValue: { [weak self] user in
+                self?.user = user
+                self?.delegate?.didLoadUser()
+            }.store(in: &cancelables)
     }
 
     private func setUpSections() {

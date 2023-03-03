@@ -149,15 +149,19 @@ extension TUCRepositroyListViewViewModel: UITableViewDelegate, UITableViewDataSo
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TUCRepositoryListTableViewCell.identifier) as? TUCRepositoryListTableViewCell else {
             return UITableViewCell()
         }
-
-        cell.userTapAction.receive(on: DispatchQueue.main).sink { [weak self] userUrl in
-            self?.output.send(.openUserDetails(userUrl: userUrl))
-        }.store(in: &cancellables)
-        cell.repositoryTapAction.sink { [weak self] repository in
-            self?.output.send(.openRepositoryDetils(repository: repository))
-        }.store(in: &cancellables)
-
         cell.configure(with: cellViewModels[indexPath.row])
+
+        cell.userTapAction
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] userUrl in
+                self?.output.send(.openUserDetails(userUrl: userUrl))
+            }.store(in: &cancellables)
+        cell.repositoryTapAction
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] repository in
+                self?.output.send(.openRepositoryDetils(repository: repository))
+            }.store(in: &cancellables)
+
         return cell
     }
 
