@@ -1,16 +1,17 @@
-# Git App app writen in Swift but using Combine
 ----------------------------------------------------------------------
-## Features by screens
+# Undabot Git App app writen in Swift using Combine
+----------------------------------------------------------------------
+#### Features by screens
 REPOSITORIES SCREEN:
 - search for a repository
 - sort search result (stars, forks, last update)
 
-REPOSITORY DETAILS:
+##### REPOSITORY DETAILS:
 - present repository details such as last update or created at
 - open user/owner details
 - open more details of repository in Safari
 
-USER/OWNER DETAILS:
+##### USER/OWNER DETAILS:
 - presents user details such as name, bio or location
 - open more details of user in Safari
 
