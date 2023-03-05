@@ -16,8 +16,9 @@ class TUCRepositoryListTableViewCell: UITableViewCell {
     static let identifier = "TURepositoryListTableViewCell"
     private var viewModel: TUCRepositoryListTableViewCellViewModel?
 
-    public var userTapAction = PassthroughSubject<URL, Never>()
-    public var repositoryTapAction = PassthroughSubject<TUCRepository, Never>()
+    public var userTapSubject = PassthroughSubject<URL, Never>()
+    public var repositoryTapSubject = PassthroughSubject<TUCRepository, Never>()
+    public var cancellables = Set<AnyCancellable>()
 
     private let containerView: UIView = {
         let view = UIView()
@@ -98,6 +99,7 @@ class TUCRepositoryListTableViewCell: UITableViewCell {
         numberOfIssuesLabel.text = nil
         numberOfStarsLabel.text = nil
         authorAvatarImageView.image = nil
+        cancellables.removeAll()
     }
 
     private func setUpViews() {
@@ -187,11 +189,11 @@ class TUCRepositoryListTableViewCell: UITableViewCell {
     // MARK: - Actions
     @objc private func openUserDetails() {
         guard let url = viewModel?.userUrl else { return }
-        userTapAction.send(url)
+        userTapSubject.send(url)
     }
 
     @objc private func openRepositoryDetails() {
         guard let repository = viewModel?.detailedRepository else { return }
-        repositoryTapAction.send(repository)
+        repositoryTapSubject.send(repository)
     }
 }

@@ -159,16 +159,16 @@ extension TUCRepositroyListViewViewModel: UITableViewDelegate, UITableViewDataSo
         }
         cell.configure(with: cellViewModels[indexPath.row])
 
-        cell.userTapAction
+        cell.userTapSubject
             .receive(on: RunLoop.main)
             .sink { [weak self] userUrl in
                 self?.output.send(.openUserDetails(userUrl: userUrl))
-            }.store(in: &cancellables)
-        cell.repositoryTapAction
+            }.store(in: &cell.cancellables)
+        cell.repositoryTapSubject
             .receive(on: RunLoop.main)
             .sink { [weak self] repository in
                 self?.output.send(.openRepositoryDetils(repository: repository))
-            }.store(in: &cancellables)
+            }.store(in: &cell.cancellables)
 
         return cell
     }
