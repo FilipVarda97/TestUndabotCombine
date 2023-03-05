@@ -6,24 +6,26 @@
 //
 
 import UIKit
-
-protocol TUCRepositoryDetailsViewModelDelegate: AnyObject {
-    func openRepositoryInBrowser(url: URL)
-    func openUserDetails(with: URL)
-}
+import Combine
 
 /// ViewModel that builds colletion view's layout for presenting RepositoryDetails and opens a URL
 /// in Safari, if provided with one. It can also open the UserDetails in another controller.
 final class TUCRepositoryDetailsViewModel: NSObject {
+
+    // MARK: - Properties
     enum SectionType {
         case info(viewModels: [TUCRepositoryDetailInfoCollectionViewCellViewModel])
         case dates(viewModels: [TUCRepositoryDetailDatesCollectionViewCellViewModel])
         case user(viewModel: TUCRepositoryDetailUserCollectionViewCellViewModel)
         case url(viewModel: TUCRepositoryDetailUrlsCollectionViewCellViewModel)
     }
-    public var sections: [SectionType] = []
-    weak var delegate: TUCRepositoryDetailsViewModelDelegate?
+
     private var repository: TUCRepository?
+
+    public var sections: [SectionType] = []
+    public var openRepositoryInSafari = PassthroughSubject<URL, Never>()
+    public var openUserDetails = PassthroughSubject<URL, Never>()
+    public var cancellabels = Set<AnyCancellable>()
 
     // MARK: - Init
     override init() {
@@ -56,6 +58,74 @@ final class TUCRepositoryDetailsViewModel: NSObject {
             .user(viewModel: .init(ownerUser: repository.ownerUser)),
             .url(viewModel: .init(url: repository.repositoryUrl))
         ]
+    }
+}
+
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource
+extension TUCRepositoryDetailsViewModel: UICollectionViewDelegate, UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return sections.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let sectionType = sections[section]
+        switch sectionType {
+        case .url, .user:
+            return 1
+        case .dates(viewModels: let viewModels):
+            return viewModels.count
+        case .info(viewModels: let viewModels):
+            return viewModels.count
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let section = sections[indexPath.section]
+        switch section {
+        case .info(viewModels: let viewModels):
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TUCRepositoryDetailInfoCollectionViewCell.identifier,
+                                                                for: indexPath) as? TUCRepositoryDetailInfoCollectionViewCell else {
+                fatalError("Ups, missing cell")
+            }
+            cell.configure(with: viewModels[indexPath.row])
+            return cell
+        case .dates(viewModels: let viewModels):
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TUCRepositoryDetailDatesCollectionViewCell.identifier,
+                                                                for: indexPath) as? TUCRepositoryDetailDatesCollectionViewCell else {
+                fatalError("Ups, missing cell")
+            }
+            cell.configure(with: viewModels[indexPath.row])
+            return cell
+        case .url(viewModel: let viewModel):
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TUCRepositoryDetailUrlsCollectionViewCell.identifier,
+                                                                for: indexPath) as? TUCRepositoryDetailUrlsCollectionViewCell else {
+                fatalError("Ups, missing cell")
+            }
+            cell.configure(with: viewModel)
+            return cell
+        case .user(viewModel: let viewModel):
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TUCRepositoryDetailUserCollectionViewCell.identifier,
+                                                                for: indexPath) as? TUCRepositoryDetailUserCollectionViewCell else {
+                fatalError("Ups, missing cell")
+            }
+            cell.configure(with: viewModel)
+            return cell
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        let sectionType = sections[indexPath.section]
+        switch sectionType {
+        case .info, .dates:
+            break
+        case .url(let viewModel):
+            guard let url = viewModel.urlToOpen else { return }
+            openRepositoryInSafari.send(url)
+        case .user(viewModel: let viewModel):
+            guard let userUrl = viewModel.userUrl else { return }
+            openUserDetails.send(userUrl)
+        }
     }
 }
 
@@ -135,73 +205,5 @@ extension TUCRepositoryDetailsViewModel {
         )
         let section = NSCollectionLayoutSection(group: group)
         return section
-    }
-}
-
-// MARK: - UICollectionViewDelegate, UICollectionViewDataSource
-extension TUCRepositoryDetailsViewModel: UICollectionViewDelegate, UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return sections.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let sectionType = sections[section]
-        switch sectionType {
-        case .url, .user:
-            return 1
-        case .dates(viewModels: let viewModels):
-            return viewModels.count
-        case .info(viewModels: let viewModels):
-            return viewModels.count
-        }
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let section = sections[indexPath.section]
-        switch section {
-        case .info(viewModels: let viewModels):
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TUCRepositoryDetailInfoCollectionViewCell.identifier,
-                                                                for: indexPath) as? TUCRepositoryDetailInfoCollectionViewCell else {
-                fatalError("Ups, missing cell")
-            }
-            cell.configure(with: viewModels[indexPath.row])
-            return cell
-        case .dates(viewModels: let viewModels):
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TUCRepositoryDetailDatesCollectionViewCell.identifier,
-                                                                for: indexPath) as? TUCRepositoryDetailDatesCollectionViewCell else {
-                fatalError("Ups, missing cell")
-            }
-            cell.configure(with: viewModels[indexPath.row])
-            return cell
-        case .url(viewModel: let viewModel):
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TUCRepositoryDetailUrlsCollectionViewCell.identifier,
-                                                                for: indexPath) as? TUCRepositoryDetailUrlsCollectionViewCell else {
-                fatalError("Ups, missing cell")
-            }
-            cell.configure(with: viewModel)
-            return cell
-        case .user(viewModel: let viewModel):
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TUCRepositoryDetailUserCollectionViewCell.identifier,
-                                                                for: indexPath) as? TUCRepositoryDetailUserCollectionViewCell else {
-                fatalError("Ups, missing cell")
-            }
-            cell.configure(with: viewModel)
-            return cell
-        }
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
-        let sectionType = sections[indexPath.section]
-        switch sectionType {
-        case .info, .dates:
-            break
-        case .url(let viewModel):
-            guard let url = viewModel.urlToOpen else { return }
-            delegate?.openRepositoryInBrowser(url: url)
-        case .user(viewModel: let viewModel):
-            guard let userUrl = viewModel.userUrl else { return }
-            delegate?.openUserDetails(with: userUrl)
-        }
     }
 }

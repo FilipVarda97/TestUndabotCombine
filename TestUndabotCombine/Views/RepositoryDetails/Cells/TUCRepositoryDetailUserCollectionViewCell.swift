@@ -68,6 +68,8 @@ final class TUCRepositoryDetailUserCollectionViewCell: UICollectionViewCell {
 
     private func setUpViews() {
         contentView.addSubview(containerView)
+        containerView.layer.cornerRadius = 10
+        containerView.clipsToBounds = true
         containerView.addSubviews(ownerImageView,
                                   usernameLabel,
                                   arrowImageView)
@@ -94,12 +96,10 @@ final class TUCRepositoryDetailUserCollectionViewCell: UICollectionViewCell {
     }
 
     private func setUpLayer() {
-        containerView.clipsToBounds = true
-        containerView.layer.cornerRadius = 10
-        containerView.layer.shadowColor = UIColor.label.cgColor
-        containerView.layer.shadowRadius = 4
-        containerView.layer.shadowOffset = CGSize(width: -6, height: 6)
-        containerView.layer.shadowOpacity = 0.3
+        contentView.layer.shadowColor = UIColor.label.cgColor
+        contentView.layer.shadowRadius = 4
+        contentView.layer.shadowOffset = CGSize(width: -6, height: 6)
+        contentView.layer.shadowOpacity = 0.3
     }
 
     public func configure(with viewModel: TUCRepositoryDetailUserCollectionViewCellViewModel) {

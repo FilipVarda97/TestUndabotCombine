@@ -7,16 +7,15 @@
 
 import UIKit
 import SnapKit
-
-protocol TUCUserDetailViewDelegate: AnyObject {
-    func openUser(from view: TUCUserDetailView, with userUrl: URL)
-}
+import Combine
 
 /// A view that presents details about selected user.
 /// Holds UICollectionView with custom CompositionalLayout.
 final class TUCUserDetailView: UIView {
-    weak var delegate: TUCUserDetailViewDelegate?
     private var viewModel: TUCUserDetailsViewModel
+    private let input = PassthroughSubject<TUCUserDetailsViewModel.Input, Never>()
+    private var cancellables = Set<AnyCancellable>()
+    public let openUserDetailsInSafari = PassthroughSubject<URL, Never>()
 
     private var collectionView: UICollectionView?
     private let spinner: UIActivityIndicatorView = {
@@ -32,10 +31,10 @@ final class TUCUserDetailView: UIView {
         self.viewModel = viewModel
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
-        self.viewModel.delegate = self
         collectionView = createColletionView()
         setUpViews()
         setUpConstraints()
+        bind()
     }
 
     required init?(coder: NSCoder) {
@@ -43,6 +42,25 @@ final class TUCUserDetailView: UIView {
     }
 
     // MARK: - Implementation
+    private func bind() {
+        let output = viewModel.transform(input: input.eraseToAnyPublisher())
+        output
+            .receive(on: RunLoop.main)
+            .sink { [weak self] event in
+                switch event {
+                case .startLoading:
+                    self?.startLoading()
+                case .didLoadUser:
+                    self?.didLoadUser()
+                case .failedToLoadUser:
+                    self?.failedToLoadUser()
+                case .openUserProfileInSafari(url: let url):
+                    self?.openUserDetailsInSafari(userUrl: url)
+                }
+            }.store(in: &cancellables)
+        input.send(.fetchUser)
+    }
+
     private func setUpViews() {
         guard let collectionView = collectionView else {
             return
@@ -91,30 +109,27 @@ final class TUCUserDetailView: UIView {
             return viewModel.createGitSection()
         }
     }
-}
 
-// MARK: - TUUserDetailsViewModelDelegate
-extension TUCUserDetailView: TUCUserDetailsViewModelDelegate {
-    func startLoading() {
+    private func startLoading() {
         spinner.startAnimating()
         collectionView?.backgroundView = nil
     }
 
-    func didLoadUser() {
+    private func didLoadUser() {
         spinner.stopAnimating()
         collectionView?.backgroundView = nil
         collectionView?.isHidden = false
         collectionView?.reloadData()
     }
 
-    func failedToLoadUser() {
+    private func failedToLoadUser() {
         spinner.stopAnimating()
         collectionView?.isHidden = false
         collectionView?.reloadData()
-        collectionView?.backgroundView = TUCEmptyTableViewBackground(message: "Could not load user :/")
+        collectionView?.backgroundView = GAEmptyTableViewBackground(message: "Could not load user :/")
     }
 
-    func openUserInBrowser(url: URL) {
-        delegate?.openUser(from: self, with: url)
+    private func openUserDetailsInSafari(userUrl: URL) {
+        openUserDetailsInSafari.send(userUrl)
     }
 }

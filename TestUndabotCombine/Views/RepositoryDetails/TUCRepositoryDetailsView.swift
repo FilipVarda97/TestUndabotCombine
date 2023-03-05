@@ -7,28 +7,40 @@
 
 import UIKit
 import SnapKit
-
-protocol TUCRepositoryDetailsViewDelegate: AnyObject {
-    func openRepository(from view: TUCRepositoryDetailsView, with repositoryUrl: URL)
-    func openUserDetails(from view: TUCRepositoryDetailsView, with userUrl: URL)
-}
+import Combine
 
 /// A view that presents details about selected repository.
 /// Holds UICollectionView with custom CompositionalLayout.
 final class TUCRepositoryDetailsView: UIView {
-    weak var delegate: TUCRepositoryDetailsViewDelegate?
     private var viewModel: TUCRepositoryDetailsViewModel
-
     private var collectionView: UICollectionView?
+    private var cancellables = Set<AnyCancellable>()
+
+    public var openUserAction = PassthroughSubject<URL, Never>()
+    public var openRepositoryAction = PassthroughSubject<URL, Never>()
 
     // MARK: - Init
     init(frame: CGRect, viewModel: TUCRepositoryDetailsViewModel) {
         self.viewModel = viewModel
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
-        self.viewModel.delegate = self
         setUpViews()
         setUpConstraints()
+        bind()
+    }
+
+    private func bind() {
+        viewModel.openRepositoryInSafari
+            .receive(on: RunLoop.main)
+            .sink { [weak self] url in
+                self?.openRepositoryAction.send(url)
+            }.store(in: &cancellables)
+
+        viewModel.openUserDetails
+            .receive(on: RunLoop.main)
+            .sink { [weak self] url in
+                self?.openUserAction.send(url)
+            }.store(in: &cancellables)
     }
 
     required init?(coder: NSCoder) {
@@ -84,16 +96,5 @@ final class TUCRepositoryDetailsView: UIView {
         case .user:
             return viewModel.createUserSection()
         }
-    }
-}
-
-// MARK: - TURepositoryDetailsViewModelDelegate
-extension TUCRepositoryDetailsView: TUCRepositoryDetailsViewModelDelegate {
-    func openUserDetails(with url: URL) {
-        delegate?.openUserDetails(from: self, with: url)
-    }
-
-    func openRepositoryInBrowser(url: URL) {
-        delegate?.openRepository(from: self, with: url)
     }
 }

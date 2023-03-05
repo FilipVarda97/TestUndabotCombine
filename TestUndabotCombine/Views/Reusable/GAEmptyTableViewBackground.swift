@@ -8,7 +8,7 @@
 import UIKit
 
 /// Background view of UITableView. Can init with custom message or default "No data?".
-final class TUCEmptyTableViewBackground: UIView {
+final class GAEmptyTableViewBackground: UIView {
     private var message: String = "Something went wrong...\nCheck spelling."
     private let messageLabel: UILabel = {
         let label = UILabel()

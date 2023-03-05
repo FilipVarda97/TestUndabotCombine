@@ -16,8 +16,8 @@ class TUCRepositoryListTableViewCell: UITableViewCell {
     static let identifier = "TURepositoryListTableViewCell"
     private var viewModel: TUCRepositoryListTableViewCellViewModel?
 
-    public let userTapAction = PassthroughSubject<URL, Never>()
-    public let repositoryTapAction = PassthroughSubject<TUCRepository, Never>()
+    public var userTapAction = PassthroughSubject<URL, Never>()
+    public var repositoryTapAction = PassthroughSubject<TUCRepository, Never>()
 
     private let containerView: UIView = {
         let view = UIView()
@@ -83,9 +83,23 @@ class TUCRepositoryListTableViewCell: UITableViewCell {
         fatalError("Unsupported")
     }
 
-    override func layoutSubviews() {}
-
     // MARK: - Implementation
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        setUpLayer()
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        repositoryNameLabel.text = nil
+        authorNameLabel.text = nil
+        numberOfWatchersLabel.text = nil
+        numberOfForksLabel.text = nil
+        numberOfIssuesLabel.text = nil
+        numberOfStarsLabel.text = nil
+        authorAvatarImageView.image = nil
+    }
+
     private func setUpViews() {
         contentView.addSubview(containerView)
         containerView.addSubviews(authorAvatarImageView,
@@ -161,6 +175,13 @@ class TUCRepositoryListTableViewCell: UITableViewCell {
         authorAvatarImageView.kf.setImage(with: viewModel.avatarURL,
                                           placeholder: placeholder,
                                           options: [.transition(.flipFromLeft(0.2))])
+    }
+
+    private func setUpLayer() {
+        contentView.layer.shadowColor = UIColor.label.cgColor
+        contentView.layer.shadowRadius = 4
+        contentView.layer.shadowOffset = CGSize(width: -6, height: 6)
+        contentView.layer.shadowOpacity = 0.3
     }
 
     // MARK: - Actions

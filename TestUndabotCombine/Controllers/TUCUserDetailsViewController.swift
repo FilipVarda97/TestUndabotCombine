@@ -7,18 +7,19 @@
 
 import UIKit
 import SnapKit
+import Combine
 
 /// This controller presents TUUserDetailView and opens Safari.
 final class TUCUserDetailsViewController: UIViewController {
     private let userDetailsView: TUCUserDetailView
     private let viewModel: TUCUserDetailsViewModel
+    private var cancellables = Set<AnyCancellable>()
 
     // MARK: - Init
     init(viewModel: TUCUserDetailsViewModel) {
         self.viewModel = viewModel
         self.userDetailsView = TUCUserDetailView(frame: .zero, viewModel: viewModel)
         super.init(nibName: nil, bundle: nil)
-        self.userDetailsView.delegate = self
     }
 
     required init(coder: NSCoder) {
@@ -30,20 +31,27 @@ final class TUCUserDetailsViewController: UIViewController {
         super.viewDidLoad()
         title = "User details"
         setUpViews()
+        bind()
+    }
+
+    private func bind() {
+        userDetailsView.openUserDetailsInSafari
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] url in
+                self?.openUser(with: url)
+            }).store(in: &cancellables)
     }
 
     private func setUpViews() {
         view.backgroundColor = .systemBackground
         view.addSubview(userDetailsView)
         userDetailsView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.top.left.right.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalToSuperview()
         }
     }
-}
 
-// MARK: - TUUserDetailViewDelegate
-extension TUCUserDetailsViewController: TUCUserDetailViewDelegate {
-    func openUser(from view: TUCUserDetailView, with userUrl: URL) {
+    private func openUser(with userUrl: URL) {
         let alertController = UIAlertController(title: "Open in Safari",
                                                 message: "Are you sure that you want to open this link in Safari?",
                                                 preferredStyle: .alert)

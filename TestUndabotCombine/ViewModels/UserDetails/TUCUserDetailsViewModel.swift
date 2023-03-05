@@ -8,16 +8,18 @@
 import UIKit
 import Combine
 
-protocol TUCUserDetailsViewModelDelegate: AnyObject {
-    func startLoading()
-    func didLoadUser()
-    func failedToLoadUser()
-    func openUserInBrowser(url: URL)
-}
-
 /// ViewModel that builds colletion view's layout for presenting UserDetails and opens a URL
 /// in Safari, if provided with one.
 final class TUCUserDetailsViewModel: NSObject {
+    enum Input {
+        case fetchUser
+    }
+    enum Output {
+        case startLoading
+        case didLoadUser
+        case failedToLoadUser
+        case openUserProfileInSafari(url: URL)
+    }
     enum SectionType {
         case photo(viewModel: TUCUserDetailPhotoCollectionViewCellViewModel)
         case information(viewModels: [TUCUserDetailsInfoCollectionViewCellViewModel])
@@ -26,17 +28,12 @@ final class TUCUserDetailsViewModel: NSObject {
 
     public var sections: [SectionType] = []
     private var userUrl: URL?
-    private var cancelables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
+    private let output = PassthroughSubject<Output, Never>()
 
     private var user: TUCUser? {
         didSet {
             setUpSections()
-        }
-    }
-
-    weak var delegate: TUCUserDetailsViewModelDelegate? {
-        didSet {
-            fetchUser()
         }
     }
 
@@ -52,27 +49,39 @@ final class TUCUserDetailsViewModel: NSObject {
     }
 
     // MARK: - Implementation
+    func transform(input: AnyPublisher<Input, Never>) -> AnyPublisher<Output, Never> {
+        input
+            .receive(on: RunLoop.main)
+            .sink { [weak self] event in
+            switch event {
+            case .fetchUser:
+                self?.fetchUser()
+            }
+        }.store(in: &cancellables)
+        return output.eraseToAnyPublisher()
+    }
+
     private func fetchUser() {
         guard let url = userUrl,
               let tucRequest = TUCRequest(url: url) else { return }
-        delegate?.startLoading()
+        output.send(.startLoading)
         TUCService.shared.execute(tucRequest, expected: TUCUser.self)
-            .receive(on: DispatchQueue.main)
+            .receive(on: RunLoop.main)
             .sink { [weak self] completion in
                 if case .failure(let error) = completion {
-                    self?.delegate?.failedToLoadUser()
+                    self?.output.send(.failedToLoadUser)
                     print(error.localizedDescription)
                 }
             } receiveValue: { [weak self] user in
                 self?.user = user
-                self?.delegate?.didLoadUser()
-            }.store(in: &cancelables)
+                self?.output.send(.didLoadUser)
+            }.store(in: &cancellables)
     }
 
     private func setUpSections() {
         guard let user = user else { return }
         sections = [
-            .photo(viewModel: TUCUserDetailPhotoCollectionViewCellViewModel(imageUrl: URL(string: user.avatarImageString))),
+            .photo(viewModel: .init(imageUrl: URL(string: user.avatarImageString))),
             .information(viewModels: [
                 .init(type: .name, value: user.name ?? ""),
                 .init(type: .bio, value: user.bio ?? ""),
@@ -83,6 +92,62 @@ final class TUCUserDetailsViewModel: NSObject {
             ]),
             .userGitUrl(viewModel: .init(url: user.gitProfileUrl))
         ]
+    }
+}
+
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource
+extension TUCUserDetailsViewModel: UICollectionViewDelegate, UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return sections.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let sectionType = sections[section]
+        switch sectionType {
+        case .photo, .userGitUrl:
+            return 1
+        case .information(viewModels: let viewModels):
+            return viewModels.count
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let section = sections[indexPath.section]
+        switch section {
+        case .photo(viewModel: let viewModel):
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TUCUserDetailPhotoCollectionViewCell.identifier,
+                                                                for: indexPath) as? TUCUserDetailPhotoCollectionViewCell else {
+                fatalError("Ups, missing cell")
+            }
+            cell.configure(with: viewModel)
+            return cell
+        case .information(viewModels: let viewModels):
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TUCUserDetailsInfoCollectionViewCell.identifier,
+                                                                for: indexPath) as? TUCUserDetailsInfoCollectionViewCell else {
+                fatalError("Ups, missing cell")
+            }
+            cell.configure(with: viewModels[indexPath.row])
+            return cell
+        case .userGitUrl(viewModel: let viewModel):
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TUCUserDetailsGitCollectionViewCell.identifier,
+                                                                for: indexPath) as? TUCUserDetailsGitCollectionViewCell else {
+                fatalError("Ups, missing cell")
+            }
+            cell.configure(with: viewModel)
+            return cell
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        let sectionType = sections[indexPath.section]
+        switch sectionType {
+        case .photo, .information:
+            break
+        case .userGitUrl(let viewModel):
+            guard let url = viewModel.urlToOpen else { return }
+            output.send(.openUserProfileInSafari(url: url))
+        }
     }
 }
 
@@ -143,61 +208,5 @@ extension TUCUserDetailsViewModel {
         )
         let section = NSCollectionLayoutSection(group: group)
         return section
-    }
-}
-
-// MARK: - UICollectionViewDelegate, UICollectionViewDataSource
-extension TUCUserDetailsViewModel: UICollectionViewDelegate, UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return sections.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let sectionType = sections[section]
-        switch sectionType {
-        case .photo, .userGitUrl:
-            return 1
-        case .information(viewModels: let viewModels):
-            return viewModels.count
-        }
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let section = sections[indexPath.section]
-        switch section {
-        case .photo(viewModel: let viewModel):
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TUCUserDetailPhotoCollectionViewCell.identifier,
-                                                                for: indexPath) as? TUCUserDetailPhotoCollectionViewCell else {
-                fatalError("Ups, missing cell")
-            }
-            cell.configure(with: viewModel)
-            return cell
-        case .information(viewModels: let viewModels):
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TUCUserDetailsInfoCollectionViewCell.identifier,
-                                                                for: indexPath) as? TUCUserDetailsInfoCollectionViewCell else {
-                fatalError("Ups, missing cell")
-            }
-            cell.configure(with: viewModels[indexPath.row])
-            return cell
-        case .userGitUrl(viewModel: let viewModel):
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TUCUserDetailsGitCollectionViewCell.identifier,
-                                                                for: indexPath) as? TUCUserDetailsGitCollectionViewCell else {
-                fatalError("Ups, missing cell")
-            }
-            cell.configure(with: viewModel)
-            return cell
-        }
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
-        let sectionType = sections[indexPath.section]
-        switch sectionType {
-        case .photo, .information:
-            break
-        case .userGitUrl(let viewModel):
-            guard let url = viewModel.urlToOpen else { return }
-            delegate?.openUserInBrowser(url: url)
-        }
     }
 }

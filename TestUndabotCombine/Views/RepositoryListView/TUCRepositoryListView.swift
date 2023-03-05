@@ -12,13 +12,8 @@ import Combine
 /// A view holding a table view that presents cells with repository information,
 /// and UISearchController with it's ScopeButtons.
 final class TUCRepositoryListView: UIView {
-    private let viewModel = TUCRepositroyListViewViewModel()
-    private let input = PassthroughSubject<TUCRepositroyListViewViewModel.Input, Never>()
-    private var cancellables = Set<AnyCancellable>()
 
-    public let openUserDetails = PassthroughSubject<URL, Never>()
-    public let openRepositoryDetails = PassthroughSubject<TUCRepository, Never>()
-
+    // MARK: - Properties
     public let searchController: UISearchController = {
         let searchController = UISearchController()
         searchController.searchBar.placeholder = "Repository name"
@@ -42,6 +37,13 @@ final class TUCRepositoryListView: UIView {
         return spinner
     }()
 
+    private let viewModel = TUCRepositroyListViewViewModel()
+    private let input = PassthroughSubject<TUCRepositroyListViewViewModel.Input, Never>()
+    private var cancellables = Set<AnyCancellable>()
+
+    public let openUserDetails = PassthroughSubject<URL, Never>()
+    public let openRepositoryDetails = PassthroughSubject<TUCRepository, Never>()
+
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -59,19 +61,21 @@ final class TUCRepositoryListView: UIView {
     private func bind() {
         let output = viewModel.transform(input: input.eraseToAnyPublisher())
         output
-            .receive(on: DispatchQueue.main)
-            .sink { event in
+            .receive(on: RunLoop.main)
+            .sink { [weak self] event in
                 switch event {
                 case .didBeginLoading:
-                    self.beginLoadingRepositories()
+                    self?.beginLoadingRepositories()
                 case .failedToLoadSearchRepositories:
-                    self.failedToLoadSearchRepositories()
+                    self?.failedToLoadSearchRepositories()
                 case .finishedLoadingOrSortingRepositories:
-                    self.finishedLoadingOrSortingRepositories()
+                    self?.finishedLoadingOrSortingRepositories()
                 case .openUserDetails(userUrl: let userUrl):
-                    self.openUserDetails(userUrl: userUrl)
+                    self?.openUserDetails(userUrl: userUrl)
                 case .openRepositoryDetils(repository: let repository):
-                    self.openRepositoryDetails(repository: repository)
+                    self?.openRepositoryDetails(repository: repository)
+                case .cancelSearch:
+                    self?.cancelSearch()
                 }
             }.store(in: &cancellables)
     }
@@ -105,7 +109,7 @@ final class TUCRepositoryListView: UIView {
     private func failedToLoadSearchRepositories() {
         spinner.stopAnimating()
         tableView.reloadData()
-        tableView.backgroundView = TUCEmptyTableViewBackground()
+        tableView.backgroundView = GAEmptyTableViewBackground()
     }
 
     private func finishedLoadingOrSortingRepositories() {
@@ -120,13 +124,15 @@ final class TUCRepositoryListView: UIView {
     private func openRepositoryDetails(repository: TUCRepository) {
         openRepositoryDetails.send(repository)
     }
+
+    private func cancelSearch() {
+        tableView.reloadData()
+    }
 }
 
 // MARK: - UISearchResultsUpdating, UISearchBarDelegate
 extension TUCRepositoryListView: UISearchResultsUpdating, UISearchBarDelegate {
-    func updateSearchResults(for searchController: UISearchController) {
-        input.send(.searchButtonPress(withText: searchController.searchBar.text))
-    }
+    func updateSearchResults(for searchController: UISearchController) {}
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         input.send(.searchButtonPress(withText: searchBar.text))

@@ -7,18 +7,19 @@
 
 import Foundation
 import SnapKit
+import Combine
 
 /// This controller presents TURepositoryDetailsView, opens Safari or UserDetails.
 final class TUCRepositoryDetailsViewController: UIViewController {
     private let viewModel: TUCRepositoryDetailsViewModel?
     private let repositoryDetailsView: TUCRepositoryDetailsView
+    private var cancellabels = Set<AnyCancellable>()
 
     // MARK: - Init
     init(viewModel: TUCRepositoryDetailsViewModel) {
         self.viewModel = viewModel
         repositoryDetailsView = TUCRepositoryDetailsView(frame: .zero, viewModel: viewModel)
         super.init(nibName: nil, bundle: nil)
-        repositoryDetailsView.delegate = self
     }
 
     required init(coder: NSCoder) {
@@ -30,26 +31,39 @@ final class TUCRepositoryDetailsViewController: UIViewController {
         super.viewDidLoad()
         title = "Repository details"
         setUpViews()
+        bind()
     }
 
     private func setUpViews() {
         view.backgroundColor = .systemBackground
         view.addSubview(repositoryDetailsView)
         repositoryDetailsView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.top.left.right.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalToSuperview()
         }
     }
-}
 
-// MARK: - TURepositoryDetailsViewDelegate
-extension TUCRepositoryDetailsViewController: TUCRepositoryDetailsViewDelegate {
-    func openUserDetails(from view: TUCRepositoryDetailsView, with userUrl: URL) {
+    private func bind() {
+        repositoryDetailsView.openUserAction
+            .receive(on: RunLoop.main)
+            .sink { [weak self] url in
+                self?.openUserDetails(with: url)
+            }.store(in: &cancellabels)
+
+        repositoryDetailsView.openRepositoryAction
+            .receive(on: RunLoop.main)
+            .sink { [weak self] url in
+                self?.openRepository(with: url)
+            }.store(in: &cancellabels)
+    }
+
+    private func openUserDetails(with userUrl: URL) {
         let viewModel = TUCUserDetailsViewModel(userUrl: userUrl)
         let vc = TUCUserDetailsViewController(viewModel: viewModel)
         navigationController?.pushViewController(vc, animated: true)
     }
 
-    func openRepository(from view: TUCRepositoryDetailsView, with repositoryUrl: URL) {
+    private func openRepository(with repositoryUrl: URL) {
         let alertController = UIAlertController(title: "Open in Safari",
                                                 message: "Are you sure that you want to open this link in Safari?",
                                                 preferredStyle: .alert)

@@ -11,6 +11,8 @@ import Combine
 /// A viewModel that fetches all repositories and searches for them using searchController.
 /// The viewModel is also responsible for sorting/filtering results based on selected index of ScopeButton.
 final class TUCRepositroyListViewViewModel: NSObject {
+
+    // MARK: - Properties
     enum Input {
         case searchButtonPress(withText: String?)
         case cancelButtonPressed
@@ -20,10 +22,10 @@ final class TUCRepositroyListViewViewModel: NSObject {
         case didBeginLoading
         case failedToLoadSearchRepositories
         case finishedLoadingOrSortingRepositories
+        case cancelSearch
         case openUserDetails(userUrl: URL)
         case openRepositoryDetils(repository: TUCRepository)
     }
-
     enum SortType {
         case stars
         case forks
@@ -39,20 +41,6 @@ final class TUCRepositroyListViewViewModel: NSObject {
         }
     }
 
-    private var sortType: SortType = .stars
-    private var lastSearchName = ""
-    private var isLoadingSearchRepositories = false
-    private var shouldInitialScreenPresent = true
-
-    private var cellViewModels: [TUCRepositoryListTableViewCellViewModel] = []
-    private var cancellables = Set<AnyCancellable>()
-    private let output = PassthroughSubject<Output, Never>()
-
-    private var repositories: [TUCRepository] = [] {
-        didSet {
-            sortRepositories()
-        }
-    }
     private var sortedRepositories: [TUCRepository] = [] {
         didSet {
             cellViewModels.removeAll()
@@ -63,20 +51,59 @@ final class TUCRepositroyListViewViewModel: NSObject {
         }
     }
 
+    private var cellViewModels: [TUCRepositoryListTableViewCellViewModel] = []
+    private var cancellables = Set<AnyCancellable>()
+    private let output = PassthroughSubject<Output, Never>()
+    private var sortType: SortType = .stars
+    private var isLoadingSearchRepositories = false
+    private var shouldInitialScreenPresent = true
+    private var repositories: [TUCRepository] = []
+
     // MARK: - Implementation
     func transform(input: AnyPublisher<Input, Never>) -> AnyPublisher<Output, Never> {
-        input.sink { [weak self] event in
-            switch event {
-            case .searchButtonPress(withText: let name):
-                self?.fetchRepositories(using: name)
-            case .sortPressed(selectedIndex: let index):
-                self?.sortType = .init(index)
-                self?.sortRepositories()
-            case .cancelButtonPressed:
-                self?.cancelButtonPressed()
-            }
-        }.store(in: &cancellables)
+        input
+            .receive(on: RunLoop.main)
+            .sink { [weak self] event in
+                switch event {
+                case .searchButtonPress(withText: let name):
+                    self?.fetchRepositories(using: name)
+                case .sortPressed(selectedIndex: let index):
+                    self?.sortType = .init(index)
+                    self?.sortRepositories()
+                case .cancelButtonPressed:
+                    self?.cancelButtonPressed()
+                }
+            }.store(in: &cancellables)
         return output.eraseToAnyPublisher()
+    }
+
+    private func fetchRepositories(using searchName: String?) {
+        guard let name = searchName, !name.isEmpty else { return }
+        if !isLoadingSearchRepositories {
+            let queryParams = [
+                URLQueryItem(name: "q", value: name)
+            ]
+            let tucRequest = TUCRequest(enpoint: .searchRepositories, queryParams: queryParams)
+            isLoadingSearchRepositories = true
+            shouldInitialScreenPresent = false
+            output.send(.didBeginLoading)
+            TUCService.shared.execute(tucRequest, expected: TUCRepositoriesResponse.self)
+                .receive(on: RunLoop.main)
+                .sink(receiveCompletion: { [weak self] completion in
+                    if case .failure(let error) = completion {
+                        self?.failLoadingRepositories()
+                        print(error.localizedDescription)
+                    }
+                }, receiveValue: { [weak self] result in
+                    if result.totalCount <= 0 {
+                        self?.failLoadingRepositories()
+                        return
+                    }
+                    self?.repositories = result.items
+                    self?.isLoadingSearchRepositories = false
+                    self?.sortRepositories()
+                }).store(in: &cancellables)
+        }
     }
 
     private func sortRepositories() {
@@ -103,34 +130,15 @@ final class TUCRepositroyListViewViewModel: NSObject {
     private func cancelButtonPressed() {
         shouldInitialScreenPresent = true
         repositories.removeAll()
+        cellViewModels.removeAll()
+        output.send(.cancelSearch)
     }
 
-    private func fetchRepositories(using searchName: String?) {
-        guard let name = searchName, !name.isEmpty else { return }
-        if !isLoadingSearchRepositories && lastSearchName != name {
-            let queryParams = [
-                URLQueryItem(name: "q", value: name)
-            ]
-            let tucRequest = TUCRequest(enpoint: .searchRepositories, queryParams: queryParams)
-            lastSearchName = name
-            isLoadingSearchRepositories = true
-            shouldInitialScreenPresent = false
-            output.send(.didBeginLoading)
-            TUCService.shared.execute(tucRequest, expected: TUCRepositoriesResponse.self)
-                .receive(on: DispatchQueue.main)
-                .sink(receiveCompletion: { [weak self] completion in
-                    if case .failure(let error) = completion {
-                        self?.repositories.removeAll()
-                        self?.isLoadingSearchRepositories = false
-                        self?.output.send(.failedToLoadSearchRepositories)
-                        print(error.localizedDescription)
-                    }
-                }, receiveValue: { [weak self] result in
-                    self?.repositories = result.items
-                    self?.isLoadingSearchRepositories = false
-                    self?.output.send(.finishedLoadingOrSortingRepositories)
-                }).store(in: &cancellables)
-        }
+    private func failLoadingRepositories() {
+        repositories.removeAll()
+        cellViewModels.removeAll()
+        isLoadingSearchRepositories = false
+        output.send(.failedToLoadSearchRepositories)
     }
 }
 
@@ -138,7 +146,7 @@ final class TUCRepositroyListViewViewModel: NSObject {
 extension TUCRepositroyListViewViewModel: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if cellViewModels.isEmpty && shouldInitialScreenPresent {
-            tableView.backgroundView = TUCEmptyTableViewBackground(message: "Try searching for repo.")
+            tableView.backgroundView = GAEmptyTableViewBackground(message: "Try searching for repo.")
             return 0
         }
         tableView.backgroundView = nil
@@ -152,12 +160,12 @@ extension TUCRepositroyListViewViewModel: UITableViewDelegate, UITableViewDataSo
         cell.configure(with: cellViewModels[indexPath.row])
 
         cell.userTapAction
-            .receive(on: DispatchQueue.main)
+            .receive(on: RunLoop.main)
             .sink { [weak self] userUrl in
                 self?.output.send(.openUserDetails(userUrl: userUrl))
             }.store(in: &cancellables)
         cell.repositoryTapAction
-            .receive(on: DispatchQueue.main)
+            .receive(on: RunLoop.main)
             .sink { [weak self] repository in
                 self?.output.send(.openRepositoryDetils(repository: repository))
             }.store(in: &cancellables)

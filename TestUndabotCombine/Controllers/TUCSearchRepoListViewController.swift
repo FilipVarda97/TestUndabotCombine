@@ -26,20 +26,21 @@ final class TUCSearchRepoListViewController: UIViewController {
         view.backgroundColor = .systemBackground
         view.addSubview(repoListView)
         repoListView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.top.left.right.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalToSuperview()
         }
     }
 
     private func bind() {
         repoListView.openRepositoryDetails
-            .receive(on: DispatchQueue.main)
+            .receive(on: RunLoop.main)
             .sink { [weak self] repository in
                 let viewModel = TUCRepositoryDetailsViewModel(repository: repository)
                 let vc = TUCRepositoryDetailsViewController(viewModel: viewModel)
                 self?.navigationController?.pushViewController(vc, animated: true)
             }.store(in: &cancellables)
         repoListView.openUserDetails
-            .receive(on: DispatchQueue.main)
+            .receive(on: RunLoop.main)
             .sink { [weak self] url in
                 let viewModel = TUCUserDetailsViewModel(userUrl: url)
                 let vc = TUCUserDetailsViewController(viewModel: viewModel)

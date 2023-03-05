@@ -34,7 +34,7 @@
 		7D84087129ABA624001C1349 /* TUCUserDetailsGitCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84087029ABA624001C1349 /* TUCUserDetailsGitCollectionViewCellViewModel.swift */; };
 		7D84087429ABA71F001C1349 /* TUCRepositoryListTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84087329ABA71F001C1349 /* TUCRepositoryListTableViewCellViewModel.swift */; };
 		7D84087729ABA737001C1349 /* TUCRepositroyListViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84087629ABA737001C1349 /* TUCRepositroyListViewViewModel.swift */; };
-		7D84088029ABA849001C1349 /* TUCEmptyTableViewBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84087F29ABA849001C1349 /* TUCEmptyTableViewBackground.swift */; };
+		7D84088029ABA849001C1349 /* GAEmptyTableViewBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84087F29ABA849001C1349 /* GAEmptyTableViewBackground.swift */; };
 		7D84088229ABA86B001C1349 /* TUCRepositoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84088129ABA86B001C1349 /* TUCRepositoryListView.swift */; };
 		7D84088429ABA8D1001C1349 /* TUCRepositoryListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84088329ABA8D1001C1349 /* TUCRepositoryListTableViewCell.swift */; };
 		7D84088629ABA915001C1349 /* TUCUserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84088529ABA915001C1349 /* TUCUserDetailView.swift */; };
@@ -80,7 +80,7 @@
 		7D84087029ABA624001C1349 /* TUCUserDetailsGitCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCUserDetailsGitCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 		7D84087329ABA71F001C1349 /* TUCRepositoryListTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCRepositoryListTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		7D84087629ABA737001C1349 /* TUCRepositroyListViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCRepositroyListViewViewModel.swift; sourceTree = "<group>"; };
-		7D84087F29ABA849001C1349 /* TUCEmptyTableViewBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCEmptyTableViewBackground.swift; sourceTree = "<group>"; };
+		7D84087F29ABA849001C1349 /* GAEmptyTableViewBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAEmptyTableViewBackground.swift; sourceTree = "<group>"; };
 		7D84088129ABA86B001C1349 /* TUCRepositoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCRepositoryListView.swift; sourceTree = "<group>"; };
 		7D84088329ABA8D1001C1349 /* TUCRepositoryListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCRepositoryListTableViewCell.swift; sourceTree = "<group>"; };
 		7D84088529ABA915001C1349 /* TUCUserDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCUserDetailView.swift; sourceTree = "<group>"; };
@@ -219,7 +219,7 @@
 		7D84087829ABA7E4001C1349 /* Reusable */ = {
 			isa = PBXGroup;
 			children = (
-				7D84087F29ABA849001C1349 /* TUCEmptyTableViewBackground.swift */,
+				7D84087F29ABA849001C1349 /* GAEmptyTableViewBackground.swift */,
 			);
 			path = Reusable;
 			sourceTree = "<group>";
@@ -525,7 +525,7 @@
 				7D669C5B29AB9CB00073C9B0 /* AppDelegate.swift in Sources */,
 				7D84085F29ABA478001C1349 /* TUCRepositoryDetailsViewModel.swift in Sources */,
 				7D84089929ABAAC3001C1349 /* TUCImageLoader.swift in Sources */,
-				7D84088029ABA849001C1349 /* TUCEmptyTableViewBackground.swift in Sources */,
+				7D84088029ABA849001C1349 /* GAEmptyTableViewBackground.swift in Sources */,
 				7D84086529ABA4DC001C1349 /* TUCRepositoryDetailUrlsCollectionViewCellViewModel.swift in Sources */,
 				7D84084D29ABA272001C1349 /* TUCRepository.swift in Sources */,
 				7D84085129ABA2B3001C1349 /* TUCUser.swift in Sources */,
