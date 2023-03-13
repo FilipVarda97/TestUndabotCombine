@@ -58,7 +58,8 @@ final class TUCRepositoryDetailsViewController: UIViewController {
     }
 
     private func openUserDetails(with userUrl: URL) {
-        let viewModel = TUCUserDetailsViewModel(userUrl: userUrl)
+        let service = TUCService()
+        let viewModel = TUCUserDetailsViewModel(userUrl: userUrl, service: service)
         let vc = TUCUserDetailsViewController(viewModel: viewModel)
         navigationController?.pushViewController(vc, animated: true)
     }

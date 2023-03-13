@@ -42,7 +42,8 @@ final class TUCSearchRepoListViewController: UIViewController {
         repoListView.openUserDetails
             .receive(on: RunLoop.main)
             .sink { [weak self] url in
-                let viewModel = TUCUserDetailsViewModel(userUrl: url)
+                let service = TUCService()
+                let viewModel = TUCUserDetailsViewModel(userUrl: url, service: service)
                 let vc = TUCUserDetailsViewController(viewModel: viewModel)
                 self?.navigationController?.pushViewController(vc, animated: true)
             }.store(in: &cancellables)

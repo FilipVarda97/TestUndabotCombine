@@ -107,4 +107,12 @@ final class TUCRequest {
         }
         return nil
     }
+
+    /// Creating request with provided params
+    public func urlRequest() -> URLRequest? {
+        guard let url = self.url else { return nil }
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = self.httpMethod
+        return urlRequest
+    }
 }

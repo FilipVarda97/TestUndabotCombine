@@ -30,6 +30,7 @@ final class TUCUserDetailsViewModel: NSObject {
     private var userUrl: URL?
     private var cancellables = Set<AnyCancellable>()
     private let output = PassthroughSubject<Output, Never>()
+    private let service: ServiceExecutable
 
     private var user: TUCUser? {
         didSet {
@@ -38,13 +39,14 @@ final class TUCUserDetailsViewModel: NSObject {
     }
 
     // MARK: - Init
-    override init() {
+    init(service: ServiceExecutable) {
+        self.service = service
         super.init()
         self.userUrl = nil
     }
 
-    convenience init(userUrl: URL) {
-        self.init()
+    convenience init(userUrl: URL, service: ServiceExecutable) {
+        self.init(service: service)
         self.userUrl = userUrl
     }
 
@@ -65,7 +67,7 @@ final class TUCUserDetailsViewModel: NSObject {
         guard let url = userUrl,
               let tucRequest = TUCRequest(url: url) else { return }
         output.send(.startLoading)
-        TUCService.shared.execute(tucRequest, expected: TUCUser.self)
+        service.execute(tucRequest, expected: TUCUser.self)
             .receive(on: RunLoop.main)
             .sink { [weak self] completion in
                 if case .failure(let error) = completion {

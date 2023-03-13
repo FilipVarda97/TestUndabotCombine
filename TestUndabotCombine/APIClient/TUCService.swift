@@ -8,9 +8,12 @@
 import Foundation
 import Combine
 
+protocol ServiceExecutable {
+    func execute<T: Codable>(_ request: TUCRequest, expected type: T.Type) -> Future<T, Error>
+}
+
 /// Service that can make a API call if provided with TURequest object
-final class TUCService {
-    static let shared = TUCService()
+final class TUCService: ServiceExecutable {
 
     /// An enum with coresponding errors for simpler error handling and naming
     enum TUCServiceError: Error {
@@ -19,22 +22,11 @@ final class TUCService {
         case failedToDecodeData
     }
 
-    // MARK: - Init
-    private init() {}
-
     // MARK: - Implementation
-    /// Creating request with provided params
-    private func requestFrom(_ tuRequest: TUCRequest) -> URLRequest? {
-        guard let url = tuRequest.url else { return nil }
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = tuRequest.httpMethod
-        return urlRequest
-    }
-
     /// Executing the request.
     /// Parameter T is generic type that has to comfort to Codable protocol.
     public func execute<T: Codable>(_ request: TUCRequest, expected type: T.Type) -> Future<T, Error> {
-        guard let urlRequest = requestFrom(request) else {
+        guard let urlRequest = request.urlRequest() else {
             return Future { promise in
                 promise(.failure(TUCServiceError.failedToCreateRequest))
             }

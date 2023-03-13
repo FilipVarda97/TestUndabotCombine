@@ -37,7 +37,7 @@ final class TUCRepositoryListView: UIView {
         return spinner
     }()
 
-    private let viewModel = TUCRepositroyListViewViewModel()
+    private let viewModel = TUCRepositroyListViewViewModel(service: TUCService())
     private let input = PassthroughSubject<TUCRepositroyListViewViewModel.Input, Never>()
     private var cancellables = Set<AnyCancellable>()
 

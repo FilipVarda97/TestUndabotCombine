@@ -58,6 +58,13 @@ final class TUCRepositroyListViewViewModel: NSObject {
     private var isLoadingSearchRepositories = false
     private var shouldInitialScreenPresent = true
     private var repositories: [TUCRepository] = []
+    private let service: ServiceExecutable
+
+    // MARK: - Init
+    init(service: ServiceExecutable) {
+        self.service = service
+        super.init()
+    }
 
     // MARK: - Implementation
     func transform(input: AnyPublisher<Input, Never>) -> AnyPublisher<Output, Never> {
@@ -87,7 +94,7 @@ final class TUCRepositroyListViewViewModel: NSObject {
             isLoadingSearchRepositories = true
             shouldInitialScreenPresent = false
             output.send(.didBeginLoading)
-            TUCService.shared.execute(tucRequest, expected: TUCRepositoriesResponse.self)
+            service.execute(tucRequest, expected: TUCRepositoriesResponse.self)
                 .receive(on: RunLoop.main)
                 .sink(receiveCompletion: { [weak self] completion in
                     if case .failure(let error) = completion {
