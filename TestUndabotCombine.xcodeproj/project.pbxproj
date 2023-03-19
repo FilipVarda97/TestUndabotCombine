@@ -47,7 +47,18 @@
 		7D84089429ABA992001C1349 /* TUCRepositoryDetailUrlsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84089329ABA992001C1349 /* TUCRepositoryDetailUrlsCollectionViewCell.swift */; };
 		7D84089629ABA99E001C1349 /* TUCRepositoryDetailUserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84089529ABA99E001C1349 /* TUCRepositoryDetailUserCollectionViewCell.swift */; };
 		7D84089929ABAAC3001C1349 /* TUCImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D84089829ABAAC3001C1349 /* TUCImageLoader.swift */; };
+		7DBCE1C929C78F3F0047177E /* TUCServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBCE1C829C78F3F0047177E /* TUCServiceTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7DBCE18729C78EC30047177E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D669C4F29AB9CB00073C9B0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7D669C5629AB9CB00073C9B0;
+			remoteInfo = TestUndabotCombine;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		6830CD63D5A0A5CAA7CEBDE3 /* Pods_TestUndabotCombine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestUndabotCombine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,6 +104,8 @@
 		7D84089329ABA992001C1349 /* TUCRepositoryDetailUrlsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCRepositoryDetailUrlsCollectionViewCell.swift; sourceTree = "<group>"; };
 		7D84089529ABA99E001C1349 /* TUCRepositoryDetailUserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCRepositoryDetailUserCollectionViewCell.swift; sourceTree = "<group>"; };
 		7D84089829ABAAC3001C1349 /* TUCImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCImageLoader.swift; sourceTree = "<group>"; };
+		7DBCE18329C78EC30047177E /* TestUndabotCombineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestUndabotCombineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DBCE1C829C78F3F0047177E /* TUCServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TUCServiceTests.swift; sourceTree = "<group>"; };
 		8BE0A94B3528E80924EE04D6 /* Pods-TestUndabotCombine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestUndabotCombine.debug.xcconfig"; path = "Target Support Files/Pods-TestUndabotCombine/Pods-TestUndabotCombine.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -105,6 +118,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7DBCE18029C78EC30047177E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -112,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				7D669C5929AB9CB00073C9B0 /* TestUndabotCombine */,
+				7DBCE18429C78EC30047177E /* TestUndabotCombineTests */,
 				7D669C5829AB9CB00073C9B0 /* Products */,
 				D4FF3CE2070EE462F8CBCBB5 /* Pods */,
 				AD177BCCDE6D10B7D9278AA8 /* Frameworks */,
@@ -122,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				7D669C5729AB9CB00073C9B0 /* TestUndabotCombine.app */,
+				7DBCE18329C78EC30047177E /* TestUndabotCombineTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -288,6 +310,14 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
+		7DBCE18429C78EC30047177E /* TestUndabotCombineTests */ = {
+			isa = PBXGroup;
+			children = (
+				7DBCE1C829C78F3F0047177E /* TUCServiceTests.swift */,
+			);
+			path = TestUndabotCombineTests;
+			sourceTree = "<group>";
+		};
 		7DBDF58029AB9DC900F5B9C4 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -389,6 +419,24 @@
 			productReference = 7D669C5729AB9CB00073C9B0 /* TestUndabotCombine.app */;
 			productType = "com.apple.product-type.application";
 		};
+		7DBCE18229C78EC30047177E /* TestUndabotCombineTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7DBCE18B29C78EC30047177E /* Build configuration list for PBXNativeTarget "TestUndabotCombineTests" */;
+			buildPhases = (
+				7DBCE17F29C78EC30047177E /* Sources */,
+				7DBCE18029C78EC30047177E /* Frameworks */,
+				7DBCE18129C78EC30047177E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7DBCE18829C78EC30047177E /* PBXTargetDependency */,
+			);
+			name = TestUndabotCombineTests;
+			productName = TestUndabotCombineTests;
+			productReference = 7DBCE18329C78EC30047177E /* TestUndabotCombineTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -401,6 +449,10 @@
 				TargetAttributes = {
 					7D669C5629AB9CB00073C9B0 = {
 						CreatedOnToolsVersion = 14.2;
+					};
+					7DBCE18229C78EC30047177E = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 7D669C5629AB9CB00073C9B0;
 					};
 				};
 			};
@@ -418,6 +470,7 @@
 			projectRoot = "";
 			targets = (
 				7D669C5629AB9CB00073C9B0 /* TestUndabotCombine */,
+				7DBCE18229C78EC30047177E /* TestUndabotCombineTests */,
 			);
 		};
 /* End PBXProject section */
@@ -429,6 +482,13 @@
 			files = (
 				7D669C6729AB9CB70073C9B0 /* LaunchScreen.storyboard in Resources */,
 				7D669C6429AB9CB70073C9B0 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DBCE18129C78EC30047177E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -539,7 +599,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7DBCE17F29C78EC30047177E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DBCE1C929C78F3F0047177E /* TUCServiceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7DBCE18829C78EC30047177E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7D669C5629AB9CB00073C9B0 /* TestUndabotCombine */;
+			targetProxy = 7DBCE18729C78EC30047177E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		7D669C6529AB9CB70073C9B0 /* LaunchScreen.storyboard */ = {
@@ -723,6 +799,42 @@
 			};
 			name = Release;
 		};
+		7DBCE18929C78EC30047177E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VHH85G7C2B;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TestUndabotCombineTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestUndabotCombine.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TestUndabotCombine";
+			};
+			name = Debug;
+		};
+		7DBCE18A29C78EC30047177E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VHH85G7C2B;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TestUndabotCombineTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestUndabotCombine.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TestUndabotCombine";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -740,6 +852,15 @@
 			buildConfigurations = (
 				7D669C6C29AB9CB70073C9B0 /* Debug */,
 				7D669C6D29AB9CB70073C9B0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7DBCE18B29C78EC30047177E /* Build configuration list for PBXNativeTarget "TestUndabotCombineTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7DBCE18929C78EC30047177E /* Debug */,
+				7DBCE18A29C78EC30047177E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

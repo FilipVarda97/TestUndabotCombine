@@ -4,13 +4,6 @@
    <FileRef
       location = "group:TestUndabotCombine.xcodeproj">
    </FileRef>
-   <Group
-      location = "group:/Users/filipvarda/Documents/iOSApps/TestUndabotCombine/TestUndabotCombineTests"
-      name = "TestUndabotCombineTests">
-      <FileRef
-         location = "group:TestUndabotCombineTests/TestUndabotCombineTests.swift">
-      </FileRef>
-   </Group>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
