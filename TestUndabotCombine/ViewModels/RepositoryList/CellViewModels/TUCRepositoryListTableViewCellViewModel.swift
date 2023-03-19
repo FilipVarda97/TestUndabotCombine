@@ -8,7 +8,7 @@
 import Foundation
 
 /// A viewModel responsible for managing data of TURepositoryListTableViewCell.
-final class TUCRepositoryListTableViewCellViewModel {
+struct TUCRepositoryListTableViewCellViewModel {
     private let repository: TUCRepository
 
     // MARK: - Public calculated properties

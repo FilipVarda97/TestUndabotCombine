@@ -10,8 +10,20 @@ import Combine
 
 /// Initial controller for the app. This controller presents TURepositoryListView which supports searching for repos and sorting them.
 final class TUCSearchRepoListViewController: UIViewController {
-    private let repoListView = TUCRepositoryListView(frame: .zero)
+    private let repoListView: TUCRepositoryListView
+    private let viewModel: TUCRepositroyListViewViewModel
     private var cancellables = Set<AnyCancellable>()
+
+    // MARK: - Init
+    init(viewModel: TUCRepositroyListViewViewModel) {
+        self.viewModel = viewModel
+        repoListView = TUCRepositoryListView(frame: .zero, viewModel: viewModel)
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("Unsupported")
+    }
 
     // MARK: - Implementation
     override func viewDidLoad() {

@@ -37,7 +37,7 @@ final class TUCRepositoryListView: UIView {
         return spinner
     }()
 
-    private let viewModel = TUCRepositroyListViewViewModel(service: TUCService())
+    private let viewModel: TUCRepositroyListViewViewModel
     private let input = PassthroughSubject<TUCRepositroyListViewViewModel.Input, Never>()
     private var cancellables = Set<AnyCancellable>()
 
@@ -45,8 +45,10 @@ final class TUCRepositoryListView: UIView {
     public let openRepositoryDetails = PassthroughSubject<TUCRepository, Never>()
 
     // MARK: - Init
-    override init(frame: CGRect) {
+    init(frame: CGRect, viewModel: TUCRepositroyListViewViewModel) {
+        self.viewModel = viewModel
         super.init(frame: frame)
+        translatesAutoresizingMaskIntoConstraints = false
         setUpViews()
         setUpConstraints()
         configureView()
