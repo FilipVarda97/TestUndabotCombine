@@ -11,24 +11,29 @@ import Combine
 
 final class TUCServiceTests: XCTestCase {
     private var cancellables = Set<AnyCancellable>()
+    private var sut: ServiceExecutable!
 
     override func setUp() {
         super.setUp()
         cancellables = []
+        sut = TUCService()
+    }
+
+    override func tearDown() {
+        sut = nil
+        super.tearDown()
     }
 
     func test_fetchRepositories() {
-        let sut = TUCService()
-        let requsest = TUCRequest(enpoint: .searchRepositories, queryParams: [URLQueryItem(name: "q", value: "Repo")])
-        sut.execute(requsest, expected: TUCRepositoriesResponse.self).sink {_ in} receiveValue: { response in
+        let request = TUCRequest(enpoint: .searchRepositories, queryParams: [URLQueryItem(name: "q", value: "Repo")])
+        sut.execute(request, expected: TUCRepositoriesResponse.self).sink {_ in} receiveValue: { response in
             XCTAssertTrue(response.items.count > 0)
         }
     }
 
     func test_fetchUser() {
-        let sut = TUCService()
-        let requsest = TUCRequest(url: URL(string: "https://api.github.com/users/github")!)!
-        sut.execute(requsest, expected: TUCUser.self).sink {_ in} receiveValue: { user in
+        let request = TUCRequest(url: URL(string: "https://api.github.com/users/github")!)!
+        sut.execute(request, expected: TUCUser.self).sink {_ in} receiveValue: { user in
             XCTAssertTrue(user.name == "github")
         }
     }
